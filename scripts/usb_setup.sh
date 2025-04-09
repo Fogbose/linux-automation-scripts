@@ -22,13 +22,13 @@ set -o pipefail
 LOGFILE="./usb_setup.log"
 
 # GLOBAL VARIABLES
-USB_DEVICE=""
-LUKS_NAME="secure_usb"
-PART_LIVE=""
-PART_PUBLIC=""
-PART_SECURE=""
-PART_BACKUPS=""
-PASSPHRASE=""
+USB_DEVICE=""          # The USB device selected by the user
+LUKS_NAME="secure_usb" # Name of the LUKS container
+PART_LIVE=""           # LIVE partition (FAT32)
+PART_PUBLIC=""         # DATA_PUBLIC partition (exFAT)
+PART_SECURE=""         # DATA_SECURE partition (LUKS + ext4)
+PART_BACKUPS=""        # BACKUPS_APPS partition (ext4)
+PASSPHRASE=""          # Passphrase for the LUKS encryption
 
 # LOGGING
 log() {
@@ -36,6 +36,7 @@ log() {
     printf "[%s] %s\n" "$(date +'%Y-%m-%d %H:%M:%S')" "$msg" | tee -a "$LOGFILE"
 }
 
+# ERROR HANDLING FUNCTION
 fail() {
     local msg="$1"
     printf "[ERROR] %s\n" "$msg" >&2
@@ -149,7 +150,8 @@ create_partitions() {
     sudo parted -s "$USB_DEVICE" mkpart BACKUPS_APPS ext4 108865MiB 100% || return 1
 
     sudo partprobe "$USB_DEVICE"
-    sleep 2
+    
+    sleep 2 # Wait for the partitions to be recognized
 
     PART_LIVE="${USB_DEVICE}1"
     PART_PUBLIC="${USB_DEVICE}2"
@@ -185,7 +187,7 @@ format_partitions() {
     log "Formatting /dev/mapper/$LUKS_NAME as ext4"
     sudo mkfs.ext4 -L "DATA_SECURE" "/dev/mapper/$LUKS_NAME" || return 1
     
-    sleep 2
+    sleep 2 # Wait for the LUCKS partition to be fully released
 
     sudo cryptsetup close "$LUKS_NAME"
     log "LUKS container closed"
