@@ -18,12 +18,14 @@ Ce projet regroupe des scripts shell simples, reproductibles et bien documentés
 
 Le projet est organisé comme suit :
 
+```bash
 .
 ├── scripts/                     # Dossier contenant les scripts
 │   └── usb_prepare_secure.sh    # Script pour préparer une clé USB 
 ├── README.md                    # Documentation principale du projet
 ├── LICENSE                      # Licence du projet (MIT)
 └── CONTRIBUTING.md              # Guide pour contribuer (à venir)
+```
 
 ---
 
