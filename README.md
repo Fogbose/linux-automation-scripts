@@ -96,7 +96,7 @@ Ce projet est distribué sous licence MIT. Voir le fichier LICENSE pour plus d�
 
 ## 👤 Auteur
 
-Simon POLET
+Simon POLET  
 Scripts conçus pour des usages pédagogiques et personnels.
 
 ---
