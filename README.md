@@ -67,7 +67,7 @@ chmod +x usb_prepare_secure.sh
 
 ---
 
-### ✅ Fonctionnalités à venir
+## ✅ Fonctionnalités à venir
 
 - Support étdendu : gestion de différentes tailles de clefs USB
 - Script de vérification automatique des dépendances
