@@ -56,7 +56,7 @@ lsblk parted mkfs.vfat mkfs.exfat mkfs.ext4 cryptsetup sudo grep awk sed tee
 
 🧪 Un script de vérification automatique des dépendances sera bientôt ajouté.
 
-🚀 Utilisation
+### 🚀 Utilisation
 
 ```bash
 chmod +x usb_prepare_secure.sh
@@ -67,14 +67,14 @@ chmod +x usb_prepare_secure.sh
 
 ---
 
-✅ Fonctionnalités à venir
+### ✅ Fonctionnalités à venir
 
 - Support étdendu : gestion de différentes tailles de clefs USB
 - Script de vérification automatique des dépendances
 
 ---
 
-🤝 Contribuer
+## 🤝 Contribuer
 
 Vous êtes les bienvenu·es pour :
 
@@ -86,20 +86,20 @@ Un fichier CONTRIBUTING.md est prévu pour faciliter les contributions à venir.
 
 ---
 
-📄 Licence
+## 📄 Licence
 
 Ce projet est distribué sous licence MIT. Voir le fichier LICENSE pour plus d’informations.
 
 ---
 
-👤 Auteur
+## 👤 Auteur
 
 Simon POLET
 Scripts conçus pour des usages pédagogiques et personnels.
 
 ---
 
-🔗 Ressources utiles
+## 🔗 Ressources utiles
 
 - [cryptsetup / LUKS](https://gitlab.com/cryptsetup/cryptsetup)
 - [GNU Parted](https://www.gnu.org/software/parted/)
