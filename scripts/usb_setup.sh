@@ -88,6 +88,13 @@ detect_usb_device() {
         fail "Device not found: $USB_DEVICE"
         return 1
     fi
+    
+    lsblk "$USB_DEVICE"
+    
+    if lsof "$USB_DEVICE" &>/dev/null || mount | grep -q "$USB_DEVICE"; then
+        fail "The $USB_DEVICE device is currently in use (mounted or open). Please unmount it before continuing."
+        return 1
+    fi
 
     printf "\n*** WARNING *** All data on %s will be DELETED. Continue? (Y/N): " "$USB_DEVICE"
     read -r confirm
@@ -111,6 +118,11 @@ ask_luks_passphrase() {
 
     if [[ "$pass1" != "$pass2" ]] || [[ -z "$pass1" ]]; then
         fail "Passphrases do not match or are empty."
+        return 1
+    fi
+    
+    if [[ ${#pass1} -lt 8 || ! "$pass1" =~ [A-Z] || ! "$pass1" =~ [0-9] ]]; then
+        fail "Passphrase must be at least 8 characters long and include both digits and uppercase letters."
         return 1
     fi
 
@@ -191,6 +203,16 @@ verify_setup() {
     fi
 }
 
+show_summary() {
+    printf "\n\n=========== Summary ===========\n"
+    lsblk -o NAME,SIZE,FSTYPE,LABEL "$USB_DEVICE"
+    printf "\n\nPartitions created and formatted successfully.\n"
+    printf "Live partition: 16GB FAT32\n"
+    printf "Data partition: 60GB exFAT\n"
+    printf "Secure partition: 30GB ext4 (LUKS encrypted)\n"
+    printf "Backups partition: 18GB ext4\n"
+}
+
 # MAIN FUNCTION
 main() {
     log "========== Starting USB key preparation =========="
@@ -221,6 +243,8 @@ main() {
     fi
 
     verify_setup
+    
+    show_summary
 
     log "========== USB key successfully prepared =========="
     return 0
