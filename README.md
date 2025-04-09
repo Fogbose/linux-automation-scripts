@@ -90,7 +90,7 @@ Un fichier CONTRIBUTING.md est prévu pour faciliter les contributions à venir.
 
 ## 📄 Licence
 
-Ce projet est distribué sous licence MIT. Voir le fichier LICENSE pour plus d’informations.
+Ce projet est distribué sous licence MIT. Voir le fichier [LICENSE](./LICENSE) pour plus d’informations.
 
 ---
 
